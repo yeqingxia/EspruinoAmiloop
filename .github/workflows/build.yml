@@ -25,19 +25,19 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0    
-    - name: make PUCKJS_MINIMAL
+    - name: make AMILOOP_MINIMAL
       env:
         TRAVIS: 1
         RELEASE: 1
         DFU_UPDATE_BUILD: 1
-        BOARD: PUCKJS_MINIMAL
+        BOARD: AMILOOP_MINIMAL
       run: |
-        source ./scripts/provision.sh PUCKJS_MINIMAL
+        source ./scripts/provision.sh AMILOOP_MINIMAL
         make  
-    - name: Upload PUCKJS_MINIMAL build artifact
+    - name: Upload AMILOOP_MINIMAL build artifact
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: PUCKJS_MINIMAL
+        name: AMILOOP_MINIMAL
         path: |
           bin/*.bin
           bin/*.hex
