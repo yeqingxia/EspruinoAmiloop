@@ -18,35 +18,28 @@ permissions:
   contents: read
 
 jobs:
-        
   # Builds with DFU_UPDATE_BUILD=1        
   build_dfu:
     runs-on: ubuntu-20.04
-    strategy:
-      # devices to build for
-      matrix:
-        board: [PUCKJS, PIXLJS, MDBT42Q, BANGLEJS, BANGLEJS2, PUCKJS_MINIMAL]
-      # try and build for all devices even if one fails
-      fail-fast: false 
     steps:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0    
-    - name: make ${{ matrix.board }}
+    - name: make PUCKJS_MINIMAL
       env:
         TRAVIS: 1
         RELEASE: 1
         DFU_UPDATE_BUILD: 1
-        BOARD: ${{ matrix.board }} 
+        BOARD: PUCKJS_MINIMAL
         UPLOADTOKEN: ${{ secrets.UPLOADTOKEN }}  
       run: |
-        source ./scripts/provision.sh  ${{ matrix.board }}
+        source ./scripts/provision.sh PUCKJS_MINIMAL
         make
         ./scripts/ci_upload.sh       
-    - name: Upload ${{ matrix.board }} build artifact
+    - name: Upload PUCKJS_MINIMAL build artifact
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: ${{ matrix.board }}
+        name: PUCKJS_MINIMAL
         path: |
           bin/*.bin
           bin/*.hex
