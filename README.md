@@ -1,4 +1,4 @@
-Espruino JavaScript for Microcontrollers
+Espruino JavaScript for Microcontroller
 ========================================
 <pre>
  _____                 _
